@@ -24,17 +24,46 @@ titleDropdown.addEventListener('change', function(event){
   if(selection.value === 'other'){showElement(jobRoleElement);} else {hideElement(jobRoleElement);}
 })//if value is other, show text box. Otherwise? Don't.
 
-let shirtDesignDropdown = document.getElementById('design');
-let punSelector = document.getElementById('pun');
-let heartSelector = document.getElementById('heart');
-let jsPuns = document.getElementsByClassName('puns');//makes an array
-let heartJs = document.getElementsByClassName('hearts');//makes another array
+let shirtDesignDropdown = document.getElementById('design');//assign the design dropdown to a variable.
+let colorChoices = document.getElementById('color');//assign color dropdown to variable.
+let defaultColor = document.getElementById('default');//assign default option in color dropdown to variable.
 
+function hideColorChoices(choice){
+	let selection = event.target;
+		for(let i = 0; i < colorChoices.length; i += 1){
+			if(colorChoices[i].className === choice){
+				colorChoices[i].style.display = 'none';
+			} else{colorChoices[i].style.display = 'block';}
+		}
+}
+
+function showAllChoices(){
+	let selection = event.target;
+		for(let i = 0; i < colorChoices.length; i+=1){
+		colorChoices[i].style.display = 'block';
+		}
+}
+
+shirtDesignDropdown.addEventListener('change', () => {
+	let selection = event.target;
+		if(selection.value === 'js puns' ){
+			defaultColor.setAttribute('selected', 'selected');
+			hideColorChoices('hearts');
+		}	
+		else if(selection.value === 'heart js'){
+			defaultColor.setAttribute('selected', 'selected');
+			hideColorChoices('puns');
+		}
+		else{showAllChoices();}
+		
+})
+
+
+/*
 function arrayHide(array){
   for(let i=0; i < array.lengthl; i += 1){
-    array[i].style.display = 'none';
-  }
-}
+	    if(array[i].className === )
+
 
 //listen for a change in the shirtDesignDropdown
 shirtDesignDropdown.addEventListener('change', function(event){
@@ -46,3 +75,4 @@ shirtDesignDropdown.addEventListener('change', function(event){
 console.log(shirtDesignDropdown);
 console.log(heartJs);
 console.log(jsPuns);
+*/
