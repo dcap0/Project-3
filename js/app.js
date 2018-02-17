@@ -2,23 +2,24 @@
 let nameInput = document.getElementById('name');
 //focus on it when the page loads.
 window.onload = () => nameInput.focus();
-
+//input box for job role.
 let jobRoleElement = document.getElementById('other-title');
+//this is the dropdown box for other title.
 let titleDropdown = document.getElementById('title');
-let otherSelection = document.getElementById('other-selector');
-console.log(jobRoleElement);
-console.log(titleDropdown);
-console.log(otherSelection);
 
-//hide jobRoleElement
-() => $(jobRoleElement).hide();
+//create function to hide jobRoleElement
+function hideOtherText(){
+  jobRoleElement.style.display = 'none'
+}
+//hide jobRoleElement by default
+hideOtherText();
+//create function that shows jobRoleElement
+function showOtherText(){
+  jobRoleElement.style.display = 'block'
+}
 
-titleDropdown.addEventListener('change', () => {
-  if(titleDropdown.hasAttribute('other-selector') === true ){
-    $(jobRoleElement).show();
-  }else{$(jobRoleElement).hide();}
-})
-
-
-
-//this is a test for using Git!
+//listen for a change in the titleDropdown
+titleDropdown.addEventListener('change', function(event){
+  let selection = event.target //create a variable = the target of the event
+  if(selection.value === 'other'){showOtherText();} else {hideOtherText();}
+}) 

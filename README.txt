@@ -6,3 +6,8 @@ Step 1: On page load, first text box will be ready to type in.
 Step 2: In the drop down labeled 'Job Role', when the option 'Other' is chosen, the text box 
 labeled 'Your Job Role' should be showing. Must be hidden on any other option.
 	-IN PROGRESS AS OF 2/16/2018-
+	-COMPLETE AS OF 2/17/2017-
+
+Step 3: In the t-shirt dropdown, show certain selections in the color dropdown while certain 
+selections are made.
+	-IN PROGRESS AS OF 2/17/2017-
