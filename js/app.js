@@ -28,6 +28,7 @@ let shirtDesignDropdown = document.getElementById('design');//assign the design 
 let colorChoices = document.getElementById('color');//assign color dropdown to variable.
 let defaultColor = document.getElementById('default');//assign default option in color dropdown to variable.
 
+//create a function to hide color choices. Choice is argument of the classname that will be hidden and elements to be shown.
 function hideColorChoices(choice){
 	let selection = event.target;
 		for(let i = 0; i < colorChoices.length; i += 1){
@@ -37,6 +38,7 @@ function hideColorChoices(choice){
 		}
 }
 
+//create a function to show all of the choices
 function showAllChoices(){
 	let selection = event.target;
 		for(let i = 0; i < colorChoices.length; i+=1){
@@ -44,35 +46,28 @@ function showAllChoices(){
 		}
 }
 
-shirtDesignDropdown.addEventListener('change', () => {
+//create a functino that will take a class name as an argument.
+function setDefaultOption(nameOfClass){
+  for(i=0; i<colorChoices.length; i+=1){//for each item in the array of colorChoices
+    if(colorChoices[i].style.display === 'block' && colorChoices[i].className === nameOfClass){//If it has a block style display and matches the className passed as an arg.
+          colorChoices[i].defaultSelected = true;//set it as the default selected.
+          //this function ensures that once user switches between the shirt type options,
+          //they will not be able to pick a color specific to the other shirt type.
+    }
+  }
+}
+
+shirtDesignDropdown.addEventListener('change', () => {//on a change
 	let selection = event.target;
-		if(selection.value === 'js puns' ){
-			defaultColor.setAttribute('selected', 'selected');
-			hideColorChoices('hearts');
-		}	
-		else if(selection.value === 'heart js'){
-			defaultColor.setAttribute('selected', 'selected');
-			hideColorChoices('puns');
+		if(selection.value === 'js puns' ){//if the value of the selected is the js puns
+			hideColorChoices('hearts');//hide the heart colors
+      setDefaultOption('puns');//default selection is a pun color.
 		}
-		else{showAllChoices();}
-		
+		else if(selection.value === 'heart js'){//if the value of the selected is heart js
+			hideColorChoices('puns');//hide the pun colors
+      setDefaultOption('hearts');//default selection is a heart color.
+		}
+		else{showAllChoices();}//neither heart nor pun? show it all.
+
+
 })
-
-
-/*
-function arrayHide(array){
-  for(let i=0; i < array.lengthl; i += 1){
-	    if(array[i].className === )
-
-
-//listen for a change in the shirtDesignDropdown
-shirtDesignDropdown.addEventListener('change', function(event){
-  let selection = event.target;//create a variable to listen for the target.
-    if(selection.value === 'heart js'){arrayHide(jsPuns);}
-    else if (selection.value === 'js puns') {arrayHide(heartJs);}
-});
-
-console.log(shirtDesignDropdown);
-console.log(heartJs);
-console.log(jsPuns);
-*/
