@@ -71,3 +71,6 @@ shirtDesignDropdown.addEventListener('change', () => {//on a change
 
 
 })
+
+let checkboxAll = $('input:checkbox');
+console.log(checkboxAll);
