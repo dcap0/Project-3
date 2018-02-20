@@ -72,5 +72,23 @@ shirtDesignDropdown.addEventListener('change', () => {//on a change
 
 })
 
-let checkboxAll = $('input:checkbox');
+let checkboxAll = document.getElementsByClassName('checkbox');//get all items in the document with the checkbox class name (labels)
 console.log(checkboxAll);
+
+let costArray = []; //make an empty array
+
+function getCosts(){//create a function called getCosts
+	for(i=0; i<checkboxAll.length; i += 1){//for each item in the checkboxAll
+		let currentBox = checkboxAll[i];//let currentBox be the current checkbox
+		let currentBoxValue = currentBox.innerText;//let currentBoxValue be the innerText content of the current checkbox.
+		function pricingValue(){//create a function called pricing value.
+			let price = paresInt((currentBoxValue.substring(-3, -1));//let price equal the last 3 string char of the  currentBoxValue, parsed to an integer.
+			costArray.push(price);//push the value to the cost array.
+		}
+		pricingValue();//run pricingValue
+	}
+}
+
+getCosts();//run getCosts
+
+console.log(costArray);//Check the array. As of 2341 on 2/19, cost array is 7 NaN values.
