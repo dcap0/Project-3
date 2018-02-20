@@ -90,16 +90,16 @@ function getCosts(){//create a function called getCosts
 
 getCosts();//run getCosts
 
-let totalPrice;
-let activitiesLearning = document.getElementsByClassName('activities');
-console.log(activitiesLearning);
+let totalPrice = 0;//Let totalPrice be 0
+let activitiesLearning = document.getElementsByClassName('box');
 
-activitiesLearning.addEventListener('change', function checkPrice(){
-	for(i=0; i<allCheckbox.length; i += 1){
-		let checker = allCheckbox[i];
+
+for(let i=0; i<activitiesLearning.length; i+=1){
+	activitiesLearning.length[i].addEventListener('change', function(){
+		let checker = activitiesLearning[i];
 		if(checker.checked){totalPrice = totalPrice + costArray[i];}
 		else if(checker.checked = false){totalPrice = totalPrice - costArray[i];}
 		console.log(totalPrice);
-	}
-})
+	})
+}
 
