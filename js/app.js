@@ -72,17 +72,16 @@ shirtDesignDropdown.addEventListener('change', () => {//on a change
 
 })
 
-let checkboxAll = document.getElementsByClassName('checkbox');//get all items in the document with the checkbox class name (labels)
-console.log(checkboxAll);
-
+let checkboxAllLabels = document.getElementsByClassName('checkbox');//get all items in the document with the checkbox class name (labels)
+let allCheckbox = document.getElementsByClassName('box');//get all of the checkboxes.
 let costArray = []; //make an empty array
 
 function getCosts(){//create a function called getCosts
-	for(i=0; i<checkboxAll.length; i += 1){//for each item in the checkboxAll
-		let currentBox = checkboxAll[i];//let currentBox be the current checkbox
-		let currentBoxValue = currentBox.innerText;//let currentBoxValue be the innerText content of the current checkbox.
+	for(i=0; i<checkboxAllLabels.length; i += 1){//for each item in the checkboxAll
+		let currentBox = checkboxAllLabels[i];//let currentBox be the current checkbox
+		let currentBoxValue = currentBox.innerText;//let currentBoxValue be the innerText content of the current checkbox. Also parse that value for adding purposes
 		function pricingValue(){//create a function called pricing value.
-			let price = paresInt((currentBoxValue.substring(-3, -1));//let price equal the last 3 string char of the  currentBoxValue, parsed to an integer.
+			let price = parseInt(currentBoxValue.substr(currentBoxValue.length - 3));//let price equal the last 3 string char of the  currentBoxValue, parsed to an integer.
 			costArray.push(price);//push the value to the cost array.
 		}
 		pricingValue();//run pricingValue
@@ -91,4 +90,16 @@ function getCosts(){//create a function called getCosts
 
 getCosts();//run getCosts
 
-console.log(costArray);//Check the array. As of 2341 on 2/19, cost array is 7 NaN values.
+let totalPrice;
+let activitiesLearning = document.getElementsByClassName('activities');
+console.log(activitiesLearning);
+
+activitiesLearning.addEventListener('change', function checkPrice(){
+	for(i=0; i<allCheckbox.length; i += 1){
+		let checker = allCheckbox[i];
+		if(checker.checked){totalPrice = totalPrice + costArray[i];}
+		else if(checker.checked = false){totalPrice = totalPrice - costArray[i];}
+		console.log(totalPrice);
+	}
+})
+
