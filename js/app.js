@@ -92,7 +92,7 @@ getCosts();//run getCosts
 let totalPrice = 0;//Let totalPrice be 0
 let activitiesLearning = document.getElementsByClassName('box');
 
-function priceBox(){
+function priceBox(){ //function for creating h2 element with ID pbox and appending it.
 	let box = document.createElement('h2');
 	box.setAttribute('id', 'pbox');
 	document.getElementById('activities').appendChild(box);
@@ -100,20 +100,21 @@ function priceBox(){
 
 
 
-function priceLister(cost){
+function priceLister(cost){ //making a text node and appending it to the h2 element
 	let price = document.createTextNode(cost);
 	document.getElementById('pbox').appendChild(price);
 }
 
-priceBox();
+priceBox();//Run price box
 
-for(let i=0; i<activitiesLearning.length; i+=1){
-	activitiesLearning[i].addEventListener('change', function(){
-		let checker = activitiesLearning[i];
-		if(checker.checked){totalPrice = totalPrice + costArray[i];}
-		else{totalPrice = totalPrice - costArray[i];}
-		document.getElementById('pbox').innerHTML = '';
-		priceLister("Total: $" +totalPrice);
+for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
+	activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
+		let checker = activitiesLearning[i];//assign the current checkbox to a variable.
+		if(checker.checked){totalPrice = totalPrice + costArray[i];}//if it's checked let totalPrice be the sum.
+		else{totalPrice = totalPrice - costArray[i];}//otherwise let totalPrice be the difference,
+		document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
+		priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 	})
 }
+
 
