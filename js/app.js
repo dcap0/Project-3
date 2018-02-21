@@ -89,17 +89,34 @@ function getCosts(){//create a function called getCosts
 }
 
 getCosts();//run getCosts
-
 let totalPrice = 0;//Let totalPrice be 0
 let activitiesLearning = document.getElementsByClassName('box');
 
+function priceBox(){
+	let box = document.createElement('h2');
+	box.setAttribute('id', 'pbox');
+	document.getElementById('activities').appendChild(box);
+}
+
+function priceWipe(){
+	let empty = document.createTextNode('');
+	document.getElementById('pbox').appendChild(empty);
+}
+
+function priceLister(cost){
+	let price = document.createTextNode(cost);
+	document.getElementById('pbox').appendChild(price);
+}
+
+priceBox();
 
 for(let i=0; i<activitiesLearning.length; i+=1){
-	activitiesLearning.length[i].addEventListener('change', function(){
+	activitiesLearning[i].addEventListener('change', function(){
 		let checker = activitiesLearning[i];
 		if(checker.checked){totalPrice = totalPrice + costArray[i];}
-		else if(checker.checked = false){totalPrice = totalPrice - costArray[i];}
-		console.log(totalPrice);
+		else{totalPrice = totalPrice - costArray[i];}
+		priceWipe();
+		priceLister(totalPrice);
 	})
 }
 
