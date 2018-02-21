@@ -98,10 +98,7 @@ function priceBox(){
 	document.getElementById('activities').appendChild(box);
 }
 
-function priceWipe(){
-	let empty = document.createTextNode('');
-	document.getElementById('pbox').appendChild(empty);
-}
+
 
 function priceLister(cost){
 	let price = document.createTextNode(cost);
@@ -115,8 +112,8 @@ for(let i=0; i<activitiesLearning.length; i+=1){
 		let checker = activitiesLearning[i];
 		if(checker.checked){totalPrice = totalPrice + costArray[i];}
 		else{totalPrice = totalPrice - costArray[i];}
-		priceWipe();
-		priceLister(totalPrice);
+		document.getElementById('pbox').innerHTML = '';
+		priceLister("Total: $" +totalPrice);
 	})
 }
 

@@ -19,3 +19,4 @@ same time must be disabled.
 Unchecked? Re-enabled. As activities are selected,
 a running total must be shown.
 	-IN PROGRESS AS OF 2/18/2018-
+	-RUNNING TOTAL FUNCTIONALITY COMPLETE AS OF 2/20/18-
