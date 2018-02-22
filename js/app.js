@@ -46,7 +46,7 @@ function showAllChoices(){
 		}
 }
 
-//create a functino that will take a class name as an argument.
+//create a function that will take a class name as an argument.
 function setDefaultOption(nameOfClass){
   for(i=0; i<colorChoices.length; i+=1){//for each item in the array of colorChoices
     if(colorChoices[i].style.display === 'block' && colorChoices[i].className === nameOfClass){//If it has a block style display and matches the className passed as an arg.
@@ -116,5 +116,4 @@ for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkbo
 		priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 	})
 }
-
 
