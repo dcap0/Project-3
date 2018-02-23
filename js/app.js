@@ -116,4 +116,15 @@ for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkbo
 		priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 	})
 }
+for(let i=0; i<activitiesLearning.length; i += 1){
+	activitiesLearning[i].addEventListener('change', function(){
+		let wordMatch = activitiesLearning.innerHTML;
+		for(let i=0; i<activitiesLearning.length; i += 1){
+			if(this.includes(wordMatch)){
+			this.disabled = true;
+			}
+		}
+
+	})
+}
 
