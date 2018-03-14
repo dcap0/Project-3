@@ -109,6 +109,7 @@ $(document).ready(function () {
 
 	priceBox();//Run price box
 
+	
 	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
 		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
 			let checker = activitiesLearning[i];//assign the current checkbox to a variable.
@@ -119,9 +120,36 @@ $(document).ready(function () {
 		})
 	}
 
-	$('.checkbox').each(function(){
-		console.log(this.innerText);
-	});
+let textContent=[];
+$('.checkbox').each(function(){
+	textContent.push(this.innerText);
+	//console.log(textContent);
+});
+
+const array = [].slice.call(activitesLearning);
+console.log(array
+let checkArray =[];
+
+	for (let i=0; i<activitiesLearning.length; i+=1){
+		activitiesLearning[i].addEventListener('change', function(){
+			let checkerTwo = activitiesLearning[i];
+			if (checkerTwo.checked){
+				for(let i=0; i<activitiesLearning.length; i+=1) {
+					if (activitiesLearning[i].substring(-1, -22) === textContent[i].substring(-1,-22)){
+						activitiesLearning[i].setAttribute('disabled', true);
+					} else {activitiesLearning[i].setAttribute('disabled', false);}
+				}
+			};
+			if(checkerTwo.checked){
+				let testValue = activitiesLearning[i].checked;
+				console.log(testValue); 
+			} else{let testValue = false;
+				console.log(testValue);
+			};
+		})
+	}
+//-22substr
+
 
 	/*
 	for(let i=0; i<activitiesLearning.length; i += 1){
