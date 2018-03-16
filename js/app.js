@@ -113,7 +113,19 @@ $(document).ready(function () {
 	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
 		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
 			let checker = activitiesLearning[i];//assign the current checkbox to a variable.
-			if(checker.checked){totalPrice = totalPrice + costArray[i];}//if it's checked let totalPrice be the sum.
+			if(checker.checked){
+				totalPrice = totalPrice + costArray[i];
+				for(let y=0; y<allCheckbox.length; y+=1){
+					if(checkboxAllLabels[y].innerText === textContent[y]){
+						allCheckbox[y].hasAttribute('disabled', true);
+					} else {allCheckbox[y].hasAttribute('disabled', false);}
+				}
+				//loop through all of the checkboxes. Whatever index the checkbox is, 
+				//the index of the texContent compares to the label index of the text
+				//content.
+				//if match disable
+				//if not enable.
+			}//if it's checked let totalPrice be the sum.
 			else{totalPrice = totalPrice - costArray[i];}//otherwise let totalPrice be the difference,
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
@@ -123,46 +135,23 @@ $(document).ready(function () {
 let textContent=[];
 $('.checkbox').each(function(){
 	textContent.push(this.innerText);
-	//console.log(textContent);
 });
 
-const array = [].slice.call(activitesLearning);
-console.log(array
-let checkArray =[];
-
-	for (let i=0; i<activitiesLearning.length; i+=1){
-		activitiesLearning[i].addEventListener('change', function(){
-			let checkerTwo = activitiesLearning[i];
-			if (checkerTwo.checked){
-				for(let i=0; i<activitiesLearning.length; i+=1) {
-					if (activitiesLearning[i].substring(-1, -22) === textContent[i].substring(-1,-22)){
-						activitiesLearning[i].setAttribute('disabled', true);
-					} else {activitiesLearning[i].setAttribute('disabled', false);}
-				}
-			};
-			if(checkerTwo.checked){
-				let testValue = activitiesLearning[i].checked;
-				console.log(testValue); 
-			} else{let testValue = false;
-				console.log(testValue);
-			};
-		})
-	}
-//-22substr
 
 
-	/*
-	for(let i=0; i<activitiesLearning.length; i += 1){
-		activitiesLearning[i].addEventListener('change', function(){
-			let wordMatch = activitiesLearning.innerHTML;
-			for(let i=0; i<activitiesLearning.length; i += 1){
-				if(this.includes(wordMatch)){
-				this.disabled = true;
-				}
+});
+
+/*for (let i=0;i<activitiesLearning.length; i+=1){
+	activitiesLearning[i].addEventListener('change', function(){
+		let thing = activitiesLearning[i];
+		if(thing.checked){
+			let testingValue = textContent;
+			for(let y=0;y<activitiesLearning.length; y+=1){
+				if(checkboxAllLabels[y] === testingValue[y]){
+					allCheckbox[y].hasAttribute('disabled', true);
+				} else {allCheckbox[y].hasAttribute('disabled', false);}
 			}
-
-		})
-	}
-
-	*/
-});
+		}
+	})
+}
+*/
