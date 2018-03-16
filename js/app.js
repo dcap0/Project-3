@@ -109,33 +109,26 @@ $(document).ready(function () {
 
 	priceBox();//Run price box
 
+	let textContent=[];
+	$('.checkbox').each(function(){
+		textContent.push(this.innerText);
+	});
 	
+
 	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
 		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
 			let checker = activitiesLearning[i];//assign the current checkbox to a variable.
 			if(checker.checked){
 				totalPrice = totalPrice + costArray[i];
-				for(let y=0; y<allCheckbox.length; y+=1){
-					if(checkboxAllLabels[y].innerText === textContent[y]){
-						allCheckbox[y].hasAttribute('disabled', true);
-					} else {allCheckbox[y].hasAttribute('disabled', false);}
-				}
-				//loop through all of the checkboxes. Whatever index the checkbox is, 
-				//the index of the texContent compares to the label index of the text
-				//content.
-				//if match disable
-				//if not enable.
-			}//if it's checked let totalPrice be the sum.
-			else{totalPrice = totalPrice - costArray[i];}//otherwise let totalPrice be the difference,
+				let checkedLabel = checkboxAllLabels[i].innerText;
+				if(checkedLabel === textContent[i].substr(-22)){
+						$(activitiesLearning[i]).attr('disabled', true);
+					} else {$(allCheckbox[i]).attr('disabled', false);}
+			}else{totalPrice = totalPrice - costArray[i];}//otherwise let totalPrice be the difference,
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 		})
 	}
-
-let textContent=[];
-$('.checkbox').each(function(){
-	textContent.push(this.innerText);
-});
 
 
 
