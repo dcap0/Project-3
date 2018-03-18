@@ -114,25 +114,66 @@ $(document).ready(function () {
 	$('.checkbox').each(function(){
 		textContent.push(this.innerText);
 	});
-	
 
+	function compareSelected(testerValue){
+		if($(`.checkbox:contains(${testerValue})`)){
+				$('.checkbox').children().attr('disabled',true);
+		}
+	}
+	
 	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
 		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
-			let checker = activitiesLearning[i];//assign the current checkbox to a variable.
-			if(checker.checked){
+			if(this.checked){
 				totalPrice = totalPrice + costArray[i];
 				let checkedLabel = checkboxAllLabels[i].innerText;
-			}else{totalPrice = totalPrice - costArray[i];}//otherwise let totalPrice be the difference,
+				let compareLabel = checkedLabel.substr(-22);
+				console.log(compareLabel);
+				compareSelected(compareLabel);	
+				//get the value of attached label. Label is parent element.
+			}
+			else{
+				totalPrice = totalPrice - costArray[i];
+			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
+
 		})
 	}
 
-	$(allCheckbox).on('change', function(){
-		console.log(this.innerText);
-	})
-
+	//$('.box').on('change', console.log(this));	
+	
 });
+
+//if this is selected.
+//iterate through labels. If label content matches array value of this, 
+//disable label.child().attr('disabled', true)
+
+//Thanks for the follow nmarulo!! Appreciate ya (^-^)
+
+
+
+
+
+			//while(this.checked){//while the checkbox is checked.
+			//	for(y=0;y=allCheckbox.length;y+=1){
+			//		if($('#activities').has('label') === checkboxAllLabels[y]){
+			//			$(allCheckbox).attr('disabled', true);
+			//		} else {
+			//			$(allCheckbox).attr('disabled', true);
+			//		}
+			//	}
+			//}
+
+
+
+
+
+
+
+
+
+
+
 
 /* 
 				if(checkedLabel.substr(-22) === textContent[i].substr(-22) && allCheckbox[i] != this){
