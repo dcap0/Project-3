@@ -110,89 +110,35 @@ $(document).ready(function () {
 
 	priceBox();//Run price box
 
-	let textContent=[];
-	$('.checkbox').each(function(){
-		textContent.push(this.innerText);
-	});
-
-	function compareSelected(testerValue){
-		if($(`.checkbox:contains(${testerValue})`)){
-				$('.checkbox').children().attr('disabled',true);
-		}
+	function compareSelected(testerValue, selected){//function that takes 2 args
+	$(`.checkbox:contains(${testerValue})`).children().attr('disabled', true);//checkbox's label contains first argument, add disabled attribute to all of it's children.
+	if(selected.checked){//if 2nd arg is checked.
+		$(selected).attr('disabled', false);//2nd arg will not be disabled
+		} 
 	}
+
+	function enableCheckbox(){ //create enable checkbox function.
+		$('.checkbox').children().attr('disabled', false);//all children of .checkbox class will not be disabled
+	}
+
 	
 	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
 		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
-			if(this.checked){
-				totalPrice = totalPrice + costArray[i];
-				let checkedLabel = checkboxAllLabels[i].innerText;
-				let compareLabel = checkedLabel.substr(-22);
-				console.log(compareLabel);
-				compareSelected(compareLabel);	
-				//get the value of attached label. Label is parent element.
+			if(this.checked){ //if box is checked
+				totalPrice = totalPrice + costArray[i];//add the total price of the course to the grand total
+				let checkedLabel = checkboxAllLabels[i].innerText;//let checkedlabel be the current label's text
+				let compareLabel = checkedLabel.substr(-22);//let compareLabel be the last 22 characters of the checkedLabel
+				compareSelected(compareLabel, this);//run compareSelected function with compareLabel and the checked box as args.	
 			}
 			else{
 				totalPrice = totalPrice - costArray[i];
+				enableCheckbox();//enable checkbox.
 			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 
 		})
-	}
-
-	//$('.box').on('change', console.log(this));	
+	}	
 	
 });
 
-//if this is selected.
-//iterate through labels. If label content matches array value of this, 
-//disable label.child().attr('disabled', true)
-
-//Thanks for the follow nmarulo!! Appreciate ya (^-^)
-
-
-
-
-
-			//while(this.checked){//while the checkbox is checked.
-			//	for(y=0;y=allCheckbox.length;y+=1){
-			//		if($('#activities').has('label') === checkboxAllLabels[y]){
-			//			$(allCheckbox).attr('disabled', true);
-			//		} else {
-			//			$(allCheckbox).attr('disabled', true);
-			//		}
-			//	}
-			//}
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-				if(checkedLabel.substr(-22) === textContent[i].substr(-22) && allCheckbox[i] != this){
-						$(activitiesLearning[i]).attr('disabled', true);
-					} else {$(allCheckbox[i]).attr('disabled', false);} */
-
-/*for (let i=0;i<activitiesLearning.length; i+=1){
-	activitiesLearning[i].addEventListener('change', function(){
-		let thing = activitiesLearning[i];
-		if(thing.checked){
-			let testingValue = textContent;
-			for(let y=0;y<activitiesLearning.length; y+=1){
-				if(checkboxAllLabels[y] === testingValue[y]){
-					allCheckbox[y].hasAttribute('disabled', true);
-				} else {allCheckbox[y].hasAttribute('disabled', false);}
-			}
-		}
-	})
-}
-*/
-
-//if checkbox.checked,Loop through all labels. if label[i].substr(-22) === any other label.subst(-22), disable checkbox of that label
