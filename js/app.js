@@ -1,10 +1,11 @@
-$(document).ready(function () {
 
 	//find the input box for name.
 	let nameInput = document.getElementById('name');
 	//focus on it when the page loads.
 	window.onload = () => nameInput.focus();
-	//input box for job role.
+
+$(document).ready(function () {
+
 	let jobRoleElement = document.getElementById('other-title');
 	//this is the dropdown box for other title.
 	let titleDropdown = document.getElementById('title');
@@ -121,18 +122,22 @@ $(document).ready(function () {
 			if(checker.checked){
 				totalPrice = totalPrice + costArray[i];
 				let checkedLabel = checkboxAllLabels[i].innerText;
-				if(checkedLabel === textContent[i].substr(-22)){
-						$(activitiesLearning[i]).attr('disabled', true);
-					} else {$(allCheckbox[i]).attr('disabled', false);}
 			}else{totalPrice = totalPrice - costArray[i];}//otherwise let totalPrice be the difference,
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 		})
 	}
 
-
+	$(allCheckbox).on('change', function(){
+		console.log(this.innerText);
+	})
 
 });
+
+/* 
+				if(checkedLabel.substr(-22) === textContent[i].substr(-22) && allCheckbox[i] != this){
+						$(activitiesLearning[i]).attr('disabled', true);
+					} else {$(allCheckbox[i]).attr('disabled', false);} */
 
 /*for (let i=0;i<activitiesLearning.length; i+=1){
 	activitiesLearning[i].addEventListener('change', function(){
@@ -148,3 +153,5 @@ $(document).ready(function () {
 	})
 }
 */
+
+//if checkbox.checked,Loop through all labels. if label[i].substr(-22) === any other label.subst(-22), disable checkbox of that label
