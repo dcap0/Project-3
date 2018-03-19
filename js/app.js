@@ -27,9 +27,9 @@ $(document).ready(function () {
 	if(selection.value === 'other'){showElement(jobRoleElement);} else {hideElement(jobRoleElement);}
 	})//if value is other, show text box. Otherwise? Don't.
 
-	let shirtDesignDropdown = document.getElementById('design');//assign the design dropdown to a variable.
-	let colorChoices = document.getElementById('color');//assign color dropdown to variable.
-	let defaultColor = document.getElementById('default');//assign default option in color dropdown to variable.
+	const shirtDesignDropdown = document.getElementById('design');//assign the design dropdown to a variable.
+	const colorChoices = document.getElementById('color');//assign color dropdown to variable.
+	const defaultColor = document.getElementById('default');//assign default option in color dropdown to variable.
 
 	//create a function to hide color choices. Choice is argument of the classname that will be hidden and elements to be shown.
 	function hideColorChoices(choice){
@@ -136,9 +136,58 @@ $(document).ready(function () {
 			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
-
 		})
 	}	
 	
+	const paymentDrop = document.getElementById('payment');
+	const creditCard = document.getElementById('credit-card');
+	const paypal = document.getElementById('paypal');
+	const bitcoin = document.getElementById('bitcoin');
+
+	console.log(creditCard);
+	console.log(paypal);
+	console.log(bitcoin);
+
+	function hidePayments(){
+		$(creditCard).hide();
+		$(paypal).hide();
+		$(bitcoin).hide();
+	}
+
+	hidePayments();//hide payments by default.
+
+	paymentDrop.addEventListener('change', () => {
+		let paymentSelection = event.target;
+			if (paymentSelection.value === 'select_method'){
+				hidePayments();
+			}
+			else if (paymentSelection.value === 'credit card') {
+				hidePayments();
+				$(creditCard).show();
+			}
+			else if (paymentSelection.value === 'paypal') {
+				hidePayments();
+				$(paypal).show();
+			}
+			else if (paymentSelection.value === 'bitcoin') {
+				hidePayments();
+				$(bitcoin).show();
+			}
+	})
+	
 });
 
+/*shirtDesignDropdown.addEventListener('change', () => {//on a change
+		let selection = event.target;
+			if(selection.value === 'js puns' ){//if the value of the selected is the js puns
+				hideColorChoices('hearts');//hide the heart colors
+		setDefaultOption('puns');//default selection is a pun color.
+			}
+			else if(selection.value === 'heart js'){//if the value of the selected is heart js
+				hideColorChoices('puns');//hide the pun colors
+		setDefaultOption('hearts');//default selection is a heart color.
+			}
+			else{showAllChoices();}//neither heart nor pun? show it all.
+
+
+	}) */
