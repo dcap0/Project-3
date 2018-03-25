@@ -179,3 +179,11 @@ button:hover {
 		width: 49%;
 	}
 }
+
+/*================================
+	Form Validation	
+==================================*/
+
+.thisInvalid{
+	border: solid red;
+}

@@ -1,6 +1,7 @@
 
 	//find the input box for name.
-	let nameInput = document.getElementById('name');
+	const nameInput = document.getElementById('name');
+	const emailInput = document.getElementById('email');
 	//focus on it when the page loads.
 	window.onload = () => nameInput.focus();
 
@@ -117,38 +118,42 @@ $(document).ready(function () {
 		} 
 	}
 
-	function enableCheckbox(){ //create enable checkbox function.
-		$('.checkbox').children().attr('disabled', false);//all children of .checkbox class will not be disabled
+	function enableCheckbox(input){ //create enable checkbox function.
+		$('.checkbox').each(console.log('test'));
+		
+		//for(let y=0; y<checkboxAllLabels.length; y+=1)
+		//	var thisLabel = checkboxAllLabels[y];
+		//	var labelCheck = checkboxAllLabels[y].innerText;	
+		//	if (labelCheck.substr(-22) === input){
+		//		$(thisLabel).child().attr('disabled', false);
+		//	}
 	}
-
 	
 	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
-		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
+		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.	
+			let checked = activitiesLearning[i];
+			let checkedParentText=$(checked).parent().text()
 			if(this.checked){ //if box is checked
-				totalPrice = totalPrice + costArray[i];//add the total price of the course to the grand total
 				let checkedLabel = checkboxAllLabels[i].innerText;//let checkedlabel be the current label's text
 				let compareLabel = checkedLabel.substr(-22);//let compareLabel be the last 22 characters of the checkedLabel
+				totalPrice = totalPrice + costArray[i];//add the total price of the course to the grand total
 				compareSelected(compareLabel, this);//run compareSelected function with compareLabel and the checked box as args.	
 			}
 			else{
 				totalPrice = totalPrice - costArray[i];
-				enableCheckbox();//enable checkbox.
+				enableCheckbox(checkedParentText);
 			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 		})
 	}	
-	
+	//Get all of the divs related to the dropdown,
 	const paymentDrop = document.getElementById('payment');
 	const creditCard = document.getElementById('credit-card');
 	const paypal = document.getElementById('paypal');
 	const bitcoin = document.getElementById('bitcoin');
 
-	console.log(creditCard);
-	console.log(paypal);
-	console.log(bitcoin);
-
-	function hidePayments(){
+	function hidePayments(){//create a function that will hide all of the selections
 		$(creditCard).hide();
 		$(paypal).hide();
 		$(bitcoin).hide();
@@ -156,38 +161,37 @@ $(document).ready(function () {
 
 	hidePayments();//hide payments by default.
 
-	paymentDrop.addEventListener('change', () => {
-		let paymentSelection = event.target;
-			if (paymentSelection.value === 'select_method'){
-				hidePayments();
+	paymentDrop.addEventListener('change', () => {//listen for a change in the dropdown
+		let paymentSelection = event.target;//whatever is selected by the drop will be the variable
+			if (paymentSelection.value === 'select_method'){//if the value of the variable is 'select_method'
+				hidePayments();//hide everything
 			}
-			else if (paymentSelection.value === 'credit card') {
-				hidePayments();
-				$(creditCard).show();
+			else if (paymentSelection.value === 'credit card') {//or if its credit card
+				hidePayments();//hide everything
+				$(creditCard).show();//show credit card
 			}
-			else if (paymentSelection.value === 'paypal') {
-				hidePayments();
-				$(paypal).show();
+			else if (paymentSelection.value === 'paypal') {//or if its paypal
+				hidePayments();//hide everything
+				$(paypal).show();//show paypal
 			}
-			else if (paymentSelection.value === 'bitcoin') {
-				hidePayments();
-				$(bitcoin).show();
+			else if (paymentSelection.value === 'bitcoin') {//or if its bitcoin
+				hidePayments();//hide all
+				$(bitcoin).show();//show bitcoin
 			}
 	})
-	
 });
 
-/*shirtDesignDropdown.addEventListener('change', () => {//on a change
-		let selection = event.target;
-			if(selection.value === 'js puns' ){//if the value of the selected is the js puns
-				hideColorChoices('hearts');//hide the heart colors
-		setDefaultOption('puns');//default selection is a pun color.
-			}
-			else if(selection.value === 'heart js'){//if the value of the selected is heart js
-				hideColorChoices('puns');//hide the pun colors
-		setDefaultOption('hearts');//default selection is a heart color.
-			}
-			else{showAllChoices();}//neither heart nor pun? show it all.
+//working on form validation. 
 
+//if name input is blank, add css style giving red border. 
+//event listener that gives listens for when the button at the bottom of the page is clicked.
 
-	}) */
+const submitButton = document.getElementById('submit');
+
+submitButton.addEventListener('click', function(){
+	let emailInputValue = emailInput.value;
+	if (nameInput.value === ''){
+		event.preventDefault();
+		nameInput.classList.add('thisInvalid');
+	}
+});	
