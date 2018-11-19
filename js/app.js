@@ -87,6 +87,7 @@ $(document).ready(function () {
 			function pricingValue(){//create a function called pricing value.
 				let price = parseInt(currentBoxValue.substr(currentBoxValue.length - 3));//let price equal the last 3 string char of the  currentBoxValue, parsed to an integer.
 				costArray.push(price);//push the value to the cost array.
+				console.log(costArray);
 			}
 			pricingValue();//run pricingValue
 		}
@@ -118,17 +119,6 @@ $(document).ready(function () {
 		}
 	}
 
-	function enableCheckbox(input){ //create enable checkbox function.
-		$('.checkbox').each(console.log('test'));
-
-		//for(let y=0; y<checkboxAllLabels.length; y+=1)
-		//	var thisLabel = checkboxAllLabels[y];
-		//	var labelCheck = checkboxAllLabels[y].innerText;
-		//	if (labelCheck.substr(-22) === input){
-		//		$(thisLabel).child().attr('disabled', false);
-		//	}
-	}
-
 	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
 		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
 			let checked = activitiesLearning[i];
@@ -141,7 +131,6 @@ $(document).ready(function () {
 			}
 			else{
 				totalPrice = totalPrice - costArray[i];
-				enableCheckbox(checkedParentText);
 			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
