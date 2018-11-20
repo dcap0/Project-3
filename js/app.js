@@ -161,7 +161,8 @@ $(document).ready(function () {
 	paymentDrop.addEventListener('change', () => {//listen for a change in the dropdown
 		let paymentSelection = event.target;//whatever is selected by the drop will be the variable
 			if (paymentSelection.value === 'select_method'){//if the value of the variable is 'select_method'
-				hidePayments();//hide everything
+				//hidePayments();//hide everything
+				$(creditCard).show();
 			}
 			else if (paymentSelection.value === 'credit card') {//or if its credit card
 				hidePayments();//hide everything
