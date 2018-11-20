@@ -87,7 +87,6 @@ $(document).ready(function () {
 			function pricingValue(){//create a function called pricing value.
 				let price = parseInt(currentBoxValue.substr(currentBoxValue.length - 3));//let price equal the last 3 string char of the  currentBoxValue, parsed to an integer.
 				costArray.push(price);//push the value to the cost array.
-				console.log(costArray);
 			}
 			pricingValue();//run pricingValue
 		}
@@ -116,10 +115,15 @@ $(document).ready(function () {
 	$(`.checkbox:contains(${testerValue})`).children().attr('disabled', true);//checkbox's label contains first argument, add disabled attribute to all of it's children.
 	if(selected.checked){//if 2nd arg is checked.
 		$(selected).attr('disabled', false);//2nd arg will not be disabled
-		}
+	}
 	}
 
-	for(let i=0; i<activitiesLearning.length; i+=1){//loop throug all of the checkboxes.
+	function compareUnselected(testerValue, selected){
+		$(`.checkbox:contains(${testerValue})`).children().attr('disabled', false);
+	}
+
+
+	for(let i=0; i<activitiesLearning.length; i+=1){//loop through all of the checkboxes.
 		activitiesLearning[i].addEventListener('change', function(){//apply a change listener to box its on.
 			let checked = activitiesLearning[i];
 			let checkedParentText=$(checked).parent().text()
@@ -129,13 +133,19 @@ $(document).ready(function () {
 				totalPrice = totalPrice + costArray[i];//add the total price of the course to the grand total
 				compareSelected(compareLabel, this);//run compareSelected function with compareLabel and the checked box as args.
 			}
-			else{
-				totalPrice = totalPrice - costArray[i];
+			else{//if box is unchecked
+				let checkedLabel = checkboxAllLabels[i].innerText;//let checkedlabel be the current label's text
+				let compareLabel = checkedLabel.substr(-22);//let compareLabel be the last 22 characters of the checkedLabel
+				totalPrice = totalPrice - costArray[i];//subtract value from cost array
+				compareUnselected(compareLabel, this);
+				//let registrar = document.getElementsByClassName('box');
+				//$(registrar).attr('disabled', false);
 			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
 		})
 	}
+
 	//Get all of the divs related to the dropdown,
 	const paymentDrop = document.getElementById('payment');
 	const creditCard = document.getElementById('credit-card');
