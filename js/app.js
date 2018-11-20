@@ -119,7 +119,7 @@ $(document).ready(function () {
 	}
 
 	function compareUnselected(testerValue, selected){
-		$(`.checkbox:contains(${testerValue})`).children().attr('disabled', false);
+		$(`.checkbox:contains(${testerValue})`).children().attr('disabled', false);//checkbox label contains first arg when unchecked, enable checkbox.
 	}
 
 
@@ -138,8 +138,6 @@ $(document).ready(function () {
 				let compareLabel = checkedLabel.substr(-22);//let compareLabel be the last 22 characters of the checkedLabel
 				totalPrice = totalPrice - costArray[i];//subtract value from cost array
 				compareUnselected(compareLabel, this);
-				//let registrar = document.getElementsByClassName('box');
-				//$(registrar).attr('disabled', false);
 			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
