@@ -161,8 +161,7 @@ $(document).ready(function () {
 	paymentDrop.addEventListener('change', () => {//listen for a change in the dropdown
 		let paymentSelection = event.target;//whatever is selected by the drop will be the variable
 			if (paymentSelection.value === 'select_method'){//if the value of the variable is 'select_method'
-				//hidePayments();//hide everything
-				$(creditCard).show();
+				hidePayments();//hide everything
 			}
 			else if (paymentSelection.value === 'credit card') {//or if its credit card
 				hidePayments();//hide everything
@@ -179,17 +178,35 @@ $(document).ready(function () {
 	})
 });
 
-//working on form validation.
+//nameInput is the name field.
+
+$(nameInput).blur(function(){
+	if(nameInput.value === ""){
+		$(nameInput).addClass("thisInvalid");
+	} else {
+		$(nameInput).removeClass("thisInvalid");
+	}
+})
+
 
 //if name input is blank, add css style giving red border.
 //event listener that gives listens for when the button at the bottom of the page is clicked.
 
+
 const submitButton = document.getElementById('submit');
 
-submitButton.addEventListener('click', function(){
-	let emailInputValue = emailInput.value;
-	if (nameInput.value === ''){
-		event.preventDefault();
-		nameInput.classList.add('thisInvalid');
+function submitChecker(e){
+	e.preventDefault();
+	let allInput = document.getElementsByTagName("input");
+	for(let i=0;i<allInput.length; i++){
+		if($(allInput[i]).hasClass("thisInvalid")){
+			e.preventDefault();
+			console.log(false);
+		} else {
+			console.log(true);
+		}
+		}
 	}
-});
+
+
+$(submitButton).click(submitChecker);

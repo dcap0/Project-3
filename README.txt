@@ -17,3 +17,4 @@ same time must be disabled.
 Unchecked? Re-enabled. As activities are selected,
 a running total must be shown.
 -Running Total Functionality COMPLETE-
+_Checkboc functionality COMPLETE-
