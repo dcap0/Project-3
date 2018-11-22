@@ -76,7 +76,6 @@ $(document).ready(function () {
 	})
 
 	let checkboxAllLabels = document.getElementsByClassName('checkbox');//get all items in the document with the checkbox class name (labels)
-	let allCheckbox = document.getElementsByClassName('box');//get all of the checkboxes.
 	let costArray = []; //make an empty array
 
 	function getCosts(){//create a function called getCosts
@@ -131,12 +130,14 @@ $(document).ready(function () {
 				let compareLabel = checkedLabel.substr(-22);//let compareLabel be the last 22 characters of the checkedLabel
 				totalPrice = totalPrice + costArray[i];//add the total price of the course to the grand total
 				compareSelected(compareLabel, this);//run compareSelected function with compareLabel and the checked box as args.
+				$(this).addClass("select_ed");
 			}
 			else{//if box is unchecked
 				let checkedLabel = checkboxAllLabels[i].innerText;//let checkedlabel be the current label's text
 				let compareLabel = checkedLabel.substr(-22);//let compareLabel be the last 22 characters of the checkedLabel
 				totalPrice = totalPrice - costArray[i];//subtract value from cost array
 				compareUnselected(compareLabel, this);
+				$(this).removeClass("select_ed");
 			}//otherwise let totalPrice be the difference
 			document.getElementById('pbox').innerHTML = '';//blank out whatever is currently showing in h2.
 			priceLister("Total: $" +totalPrice);//append the totalPrice to the h2 element.
@@ -227,14 +228,35 @@ $(cvvField).blur(function(){
 	}
 })
 
+////////////////////////////////////////////////////////////////////
+
+const allBoxes = document.getElementsByClassName('box');
+const registrationHead = document.getElementById('activities_legend');
+
+function boxCheck(){
+	let x = 0;
+	for(let i=0; i<allBoxes.length; i++){
+		if($(allBoxes).hasClass('select_ed') === false){
+			x++;
+		}
+	}
+	if(x > 0){
+		$(registrationHead).addClass('thisInvalid');
+	} else {
+		$(registrationHead).removeClass('thisInvalid');
+	}
+}
+
+////////////////////////////////////////////////////////////////////
 
 const submitButton = document.getElementById('submit');
 
-const textInputArray = ["Name", " Email", " Card Number", " Zip Code", " CVV"]
+const textInputArray = ["Name", " Email", " Activity Registration", " Card Number", " Zip Code", " CVV"]
 
 function submitChecker(e){
 	let allInput = document.getElementsByClassName("text_box");//get all input on page
 	let correctionArray = []
+	boxCheck();
 	for(let i=0;i<allInput.length; i++){//cycle through all of them
 		if($(allInput[i]).hasClass("thisInvalid")){//if any has the red outline class
 			e.preventDefault(); //don't allow submission
