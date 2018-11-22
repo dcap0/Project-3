@@ -1,7 +1,6 @@
 
 	//find the input box for name.
 	const nameInput = document.getElementById('name');
-	const emailInput = document.getElementById('email');
 	//focus on it when the page loads.
 	window.onload = () => nameInput.focus();
 
@@ -180,33 +179,71 @@ $(document).ready(function () {
 
 //nameInput is the name field.
 
-$(nameInput).blur(function(){
-	if(nameInput.value === ""){
-		$(nameInput).addClass("thisInvalid");
+$(nameInput).blur(function(){ //on unfocus
+	if(nameInput.value === ""){//if nameUnput is blank
+		$(nameInput).addClass("thisInvalid");//red outline class
 	} else {
-		$(nameInput).removeClass("thisInvalid");
+		$(nameInput).removeClass("thisInvalid");//remove red outline class
+	}
+})
+
+const userEmail = document.getElementById('mail');
+
+$(userEmail).blur(function(){
+	if(!userEmail.value.includes('.') && !userEmail.value.includes('@')){
+		$(userEmail).addClass("thisInvalid");
+	} else {
+		$(userEmail).removeClass('thisInvalid');
+	}
+})
+
+const cCNumber = document.getElementById('cc-num');
+
+$(cCNumber).blur(function(){
+	if(cCNumber.value.length < 13 || cCNumber.value.length > 16){
+		$(cCNumber).addClass("thisInvalid");
+	} else {
+		$(cCNumber).removeClass("thisInvalid");
+	}
+})
+
+const zipField = document.getElementById('zip');
+
+$(zipField).blur(function(){
+	if(zipField.value.length != 5){
+		$(zipField).addClass("thisInvalid");
+	} else {
+		$(zipField).removeClass("thisInvalid");
+	}
+})
+
+const cvvField = document.getElementById("cvv");
+
+$(cvvField).blur(function(){
+	if(cvvField.value.length != 3){
+		$(cvvField).addClass("thisInvalid");
+	} else {
+		$(cvvField).removeClass("thisInvalid");
 	}
 })
 
 
-//if name input is blank, add css style giving red border.
-//event listener that gives listens for when the button at the bottom of the page is clicked.
-
-
 const submitButton = document.getElementById('submit');
 
+const textInputArray = ["Name", " Email", " Card Number", " Zip Code", " CVV"]
+
 function submitChecker(e){
-	e.preventDefault();
-	let allInput = document.getElementsByTagName("input");
-	for(let i=0;i<allInput.length; i++){
-		if($(allInput[i]).hasClass("thisInvalid")){
-			e.preventDefault();
-			console.log(false);
-		} else {
-			console.log(true);
-		}
+	let allInput = document.getElementsByClassName("text_box");//get all input on page
+	let correctionArray = []
+	for(let i=0;i<allInput.length; i++){//cycle through all of them
+		if($(allInput[i]).hasClass("thisInvalid")){//if any has the red outline class
+			e.preventDefault(); //don't allow submission
+			correctionArray.push(textInputArray[i]);
+			continue;
 		}
 	}
+	alert("Please make corrections to the following: " + correctionArray);
+}
 
 
-$(submitButton).click(submitChecker);
+$(submitButton).click(submitChecker);//on btn click, run submit checker.
