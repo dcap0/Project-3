@@ -31,6 +31,14 @@ $(document).ready(function () {
 	const colorChoices = document.getElementById('color');//assign color dropdown to variable.
 	const defaultColor = document.getElementById('default');//assign default option in color dropdown to variable.
 
+
+		function defaultHide(){
+			for(let i = 0; i < colorChoices.length; i+=1){
+			colorChoices[i].style.display = 'none';
+			}
+		}
+		defaultHide();
+
 	//create a function to hide color choices. Choice is argument of the classname that will be hidden and elements to be shown.
 	function hideColorChoices(choice){
 		let selection = event.target;
@@ -42,12 +50,14 @@ $(document).ready(function () {
 	}
 
 	//create a function to show all of the choices
-	function showAllChoices(){
+	function hideAllChoices(){
 		let selection = event.target;
 			for(let i = 0; i < colorChoices.length; i+=1){
-			colorChoices[i].style.display = 'block';
+			colorChoices[i].style.display = 'none';
 			}
 	}
+
+	const colorInput = document.getElementById('colors-js-puns');
 
 	//create a function that will take a class name as an argument.
 	function setDefaultOption(nameOfClass){
@@ -60,19 +70,21 @@ $(document).ready(function () {
 	}
 	}
 
+	$(colorInput).css('display', 'none');
+
 	shirtDesignDropdown.addEventListener('change', () => {//on a change
 		let selection = event.target;
 			if(selection.value === 'js puns' ){//if the value of the selected is the js puns
+				$(colorInput).css('display', 'block');
 				hideColorChoices('hearts');//hide the heart colors
-		setDefaultOption('puns');//default selection is a pun color.
+				setDefaultOption('puns');//default selection is a pun color.
 			}
 			else if(selection.value === 'heart js'){//if the value of the selected is heart js
+				$(colorInput).css('display', 'block');
 				hideColorChoices('puns');//hide the pun colors
-		setDefaultOption('hearts');//default selection is a heart color.
+				setDefaultOption('hearts');//default selection is a heart color.
 			}
-			else{showAllChoices();}//neither heart nor pun? show it all.
-
-
+			else{$(colorInput).css('display', 'none');}//hide the box
 	})
 
 	let checkboxAllLabels = document.getElementsByClassName('checkbox');//get all items in the document with the checkbox class name (labels)
