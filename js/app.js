@@ -190,56 +190,6 @@ $(document).ready(function () {
 	})
 });
 
-//nameInput is the name field.
-
-$(nameInput).blur(function(){ //on unfocus
-	if(nameInput.value === ""){//if nameUnput is blank
-		$(nameInput).addClass("thisInvalid");//red outline class
-	} else {
-		$(nameInput).removeClass("thisInvalid");//remove red outline class
-	}
-})
-
-const userEmail = document.getElementById('mail');
-
-$(userEmail).blur(function(){
-	if(!userEmail.value.includes('.') && !userEmail.value.includes('@')){
-		$(userEmail).addClass("thisInvalid");
-	} else {
-		$(userEmail).removeClass('thisInvalid');
-	}
-})
-
-const cCNumber = document.getElementById('cc-num');
-
-$(cCNumber).blur(function(){
-	if(cCNumber.value.length < 13 || cCNumber.value.length > 16){
-		$(cCNumber).addClass("thisInvalid");
-	} else {
-		$(cCNumber).removeClass("thisInvalid");
-	}
-})
-
-const zipField = document.getElementById('zip');
-
-$(zipField).blur(function(){
-	if(zipField.value.length != 5){
-		$(zipField).addClass("thisInvalid");
-	} else {
-		$(zipField).removeClass("thisInvalid");
-	}
-})
-
-const cvvField = document.getElementById("cvv");
-
-$(cvvField).blur(function(){
-	if(cvvField.value.length != 3){
-		$(cvvField).addClass("thisInvalid");
-	} else {
-		$(cvvField).removeClass("thisInvalid");
-	}
-})
-
 ////////////////////////////////////////////////////////////////////
 
 const allBoxes = document.getElementsByClassName('box');
@@ -253,31 +203,142 @@ function boxCheck(){
 		}
 	}
 	if(x > 0){
+		tfArray[2] = false;
 		$(registrationHead).addClass('thisInvalid');
 	} else {
+		tfArray[2] = true;
 		$(registrationHead).removeClass('thisInvalid');
 	}
 }
 
-////////////////////////////////////////////////////////////////////
+const submitBtn = document.getElementById('submit');
+let tfArray = []
+const validArray = [true, true, true, true, true, true];
 
-const submitButton = document.getElementById('submit');
-
-const textInputArray = ["Name", " Email", " Activity Registration", " Card Number", " Zip Code", " CVV"]
-
-function submitChecker(e){
-	let allInput = document.getElementsByClassName("text_box");//get all input on page
-	let correctionArray = []
-	boxCheck();
-	for(let i=0;i<allInput.length; i++){//cycle through all of them
-		if($(allInput[i]).hasClass("thisInvalid")){//if any has the red outline class
-			e.preventDefault(); //don't allow submission
-			correctionArray.push(textInputArray[i]);
-			continue;
-		}
-	}
-	alert("Please make corrections to the following: " + correctionArray);
+function valid(validField){
+	$(validField).removeClass('thisInvalid');
 }
 
+function invalid(invalidField){
+	$(invalidField).addClass('thisInvalid');
+}
 
-$(submitButton).click(submitChecker);//on btn click, run submit checker.
+function nameCheck(){
+	if(nameInput.value === ''){
+		tfArray[0] = false;
+		invalid(nameInput);
+	} else {
+		tfArray[0] = true;
+		valid(nameInput);
+	}
+}
+
+const userEmail = document.getElementById('mail');
+
+function emailCheck(){
+	thisEmail = userEmail.value;
+	if (thisEmail.includes("@")){
+		tfArray[1] = true;
+		valid(userEmail);
+	} else {
+		tfArray[1] = false;
+		invalid(userEmail);
+	}
+}
+
+/*
+for the credit card validation.
+If the div with id 'credit-card' DOES NOT HAVE style='display: none;' AND the strings match.
+ 3 functions, one for CC number, one for zip, one for CVV.
+
+ paymentDrop is the dropdown box
+creditCard is the actual div where the inputs are.
+*/
+
+const ccNumber = document.getElementById('credit-card');
+const ccInput = document.querySelector('#cc-num');
+const bitcoinDiv = document.querySelector('#bitcoin');
+const paypalDiv = document.querySelector('#paypal');
+const zipInput = document.querySelector('#zip');
+const cvvInput = document.querySelector('#cvv');
+
+console.log
+
+function paymentCheck(selection){
+	if($(selection).css('display') == 'block'){
+		valid(ccInput);
+		valid(zipInput);
+		valid(cvvInput);
+		tfArray[3] = true;
+		tfArray[4] = true;
+		tfArray[5] = true;
+	}
+}
+
+function ccNumberCheck(){
+	if($(ccNumber).css('display') == 'block' && ccInput.value.length > 12 && ccInput.value.length < 17){
+		tfArray[3] = true;
+		valid(ccInput);
+	} else {
+		tfArray[3] = false;
+		invalid(ccInput);
+	}
+}
+
+function ccZipCheck(){
+	if($(ccNumber).css('display') == 'block' && zipInput.value.length === 5){
+		tfArray[4] = true;
+		valid(zipInput);
+	} else {
+		tfArray[4] = false;
+		invalid(zipInput);
+	}
+}
+
+function cvvCheck(){
+	if($(ccNumber).css('display') == 'block' && cvvInput.value.length === 3){
+		tfArray[5] = true;
+		valid(cvvInput);
+	} else {
+		tfArray[5] = false;
+		invalid(cvvInput);
+	}
+}
+
+let finalValid = false;
+
+function validateA(){
+	for(let i=0; i<validArray.length; i++){
+		if(tfArray[i] === false){
+			$(document.querySelector('.thisInvalid')).focus();
+			break;
+		} else {
+			finalValid = true;
+		}
+	}
+}
+
+let form = document.querySelector('form');
+
+function validateB(){
+	if(finalValid === true){
+		//trigger submission
+		console.log('testGood');
+	} else {console.log('testBad');}
+}
+
+$(submitBtn).click(
+	function(e){
+		e.preventDefault();
+		nameCheck();
+		emailCheck();
+		boxCheck();
+		ccNumberCheck();
+		ccZipCheck();
+		cvvCheck();
+		paymentCheck(bitcoinDiv);
+		paymentCheck(paypalDiv);
+		validateA();
+		validateB();
+	}
+)
