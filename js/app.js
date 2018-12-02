@@ -325,7 +325,11 @@ function validateA(){
 }
 
 
-
+let errorDiv = document.createElement('div');
+$(errorDiv).css('display', 'none');
+$(errorDiv).css('color', 'red');
+$(errorDiv).text("There was an error with your information. Incorrect fields have been highlighted.");
+$(document.querySelector('legend')).before(errorDiv);
 
 
 $(submitBtn).click(
@@ -341,13 +345,7 @@ $(submitBtn).click(
 		validateA();
 		if(finalValid === false){
 			e.preventDefault();
-			let errorDiv = document.createElement('div');
-			$(errorDiv).css('color', 'red');
-			$(errorDiv).text("There was an error with your information. Incorrect fields have been highlighted.");
-			if(!$(errorDiv).hasClass('error-div')){
-				$(document.querySelector('legend')).before(errorDiv);
-				$(errorDiv).addClass('error-div')
-			}
+			$(errorDiv).css('display', 'block');
 		}
 	}
 )
