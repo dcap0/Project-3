@@ -261,6 +261,7 @@ const bitcoinDiv = document.querySelector('#bitcoin');
 const paypalDiv = document.querySelector('#paypal');
 const zipInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
+const paymentLabel = document.querySelector('#payment')
 
 console.log
 
@@ -269,9 +270,12 @@ function paymentCheck(selection){
 		valid(ccInput);
 		valid(zipInput);
 		valid(cvvInput);
+		valid(paymentLabel);
 		tfArray[3] = true;
 		tfArray[4] = true;
 		tfArray[5] = true;
+	} else {
+		invalid(paymentLabel);
 	}
 }
 
@@ -279,9 +283,11 @@ function ccNumberCheck(){
 	if($(ccNumber).css('display') == 'block' && ccInput.value.length > 12 && ccInput.value.length < 17){
 		tfArray[3] = true;
 		valid(ccInput);
+		valid(paymentLabel)
 	} else {
 		tfArray[3] = false;
 		invalid(ccInput);
+		invalid(paymentLabel);
 	}
 }
 
@@ -318,18 +324,12 @@ function validateA(){
 	}
 }
 
-let form = document.querySelector('form');
 
-function validateB(){
-	if(finalValid === true){
-		//trigger submission
-		console.log('testGood');
-	} else {console.log('testBad');}
-}
+
+
 
 $(submitBtn).click(
 	function(e){
-		e.preventDefault();
 		nameCheck();
 		emailCheck();
 		boxCheck();
@@ -339,6 +339,15 @@ $(submitBtn).click(
 		paymentCheck(bitcoinDiv);
 		paymentCheck(paypalDiv);
 		validateA();
-		validateB();
+		if(finalValid === false){
+			e.preventDefault();
+			let errorDiv = document.createElement('div');
+			$(errorDiv).css('color', 'red');
+			$(errorDiv).text("There was an error with your information. Incorrect fields have been highlighted.");
+			if(!$(errorDiv).hasClass('error-div')){
+				$(document.querySelector('legend')).before(errorDiv);
+				$(errorDiv).addClass('error-div')
+			}
+		}
 	}
 )
